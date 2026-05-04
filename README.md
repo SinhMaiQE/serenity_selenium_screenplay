@@ -366,19 +366,19 @@ Config files live in `src/test/resources/config/`.
 | `env` | Environment name | `dev` |
 | `base.url` | Entry point URL | `https://www.saucedemo.com/` |
 | `timeout` | Wait timeout (seconds) | `10` |
-| `username` | Generic username fallback (`TEST_USERNAME`) | `(set via env)` |
-| `password` | Generic password fallback (`TEST_PASSWORD`) | `(set via env)` |
-| `credentials.standard.username` | `STANDARD` username fallback (`TEST_STANDARD_USERNAME`) | `(set via env)` |
-| `credentials.standard.password` | `STANDARD` password fallback (`TEST_STANDARD_PASSWORD`) | `(set via env)` |
-| `credentials.locked_out.username` | `LOCKED_OUT` username fallback (`TEST_LOCKED_OUT_USERNAME`) | `(set via env)` |
-| `credentials.locked_out.password` | `LOCKED_OUT` password fallback (`TEST_LOCKED_OUT_PASSWORD`) | `(set via env)` |
-| `credentials.invalid.username` | `INVALID` username fallback (`TEST_INVALID_USERNAME`) | `(set via env)` |
-| `credentials.invalid.password` | `INVALID` password fallback (`TEST_INVALID_PASSWORD`) | `(set via env)` |
+| `expected.title` | Expected page title after successful login | `Swag Labs` |
+| `expected.path` | Expected URL path after successful login | `/inventory.html` |
+| `credentials.standard.username` | `STANDARD` username (env override: `TEST_STANDARD_USERNAME`) | `(set via env)` |
+| `credentials.standard.password` | `STANDARD` password (env override: `TEST_STANDARD_PASSWORD`) | `(set via env)` |
+| `credentials.locked_out.username` | `LOCKED_OUT` username (env override: `TEST_LOCKED_OUT_USERNAME`) | `(set via env)` |
+| `credentials.locked_out.password` | `LOCKED_OUT` password (env override: `TEST_LOCKED_OUT_PASSWORD`) | `(set via env)` |
+| `credentials.invalid.username` | `INVALID` username (env override: `TEST_INVALID_USERNAME`) | `(set via env)` |
+| `credentials.invalid.password` | `INVALID` password (env override: `TEST_INVALID_PASSWORD`) | `(set via env)` |
 
 Additional notes:
-- `timeout` is now used by explicit UI waits in tasks.
-- Role names are normalized in steps, so `standard` and `locked-out` are accepted.
-- You can set an actor per scenario using tags, e.g. `@actor:Buyer`.
+- `timeout` is used by explicit UI waits in tasks (see `UiWaits`).
+- Role names accepted by feature files are case-insensitive and accept dashes/spaces, e.g. `STANDARD`, `standard`, `locked-out`.
+- Set the active actor per scenario via the `@actor:Name` tag.
 
 Switch environment via Maven:
 ```bash

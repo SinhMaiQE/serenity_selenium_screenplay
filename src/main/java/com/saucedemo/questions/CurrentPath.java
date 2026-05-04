@@ -7,6 +7,7 @@ import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 
 import java.net.URI;
 
+/** Returns the path component of the actor's current URL (e.g. {@code /inventory.html}). */
 public class CurrentPath extends BaseQuestion<String> {
 
     public static Question<String> value() {
@@ -16,6 +17,6 @@ public class CurrentPath extends BaseQuestion<String> {
     @Override
     public String answeredBy(Actor actor) {
         String currentUrl = BrowseTheWeb.as(actor).getDriver().getCurrentUrl();
-        return URI.create(currentUrl).getPath();
+        return currentUrl == null ? "" : URI.create(currentUrl).getPath();
     }
 }

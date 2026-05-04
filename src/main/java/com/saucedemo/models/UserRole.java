@@ -6,24 +6,26 @@ import java.util.Arrays;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
+/**
+ * Test users supported by the framework. Credentials for each role are
+ * resolved (in order) from:
+ * <ol>
+ *     <li>environment variable {@code TEST_<ROLE>_USERNAME} / {@code TEST_<ROLE>_PASSWORD}</li>
+ *     <li>config key {@code credentials.<role>.username} / {@code credentials.<role>.password}</li>
+ * </ol>
+ */
 public enum UserRole {
 
-    STANDARD("TEST_STANDARD_USERNAME", "TEST_STANDARD_PASSWORD", "credentials.standard.username", "credentials.standard.password"),
-    LOCKED_OUT("TEST_LOCKED_OUT_USERNAME", "TEST_LOCKED_OUT_PASSWORD", "credentials.locked_out.username", "credentials.locked_out.password"),
-    INVALID("TEST_INVALID_USERNAME", "TEST_INVALID_PASSWORD", "credentials.invalid.username", "credentials.invalid.password");
+    STANDARD,
+    LOCKED_OUT,
+    INVALID;
 
-    private final String usernameEnvKey;
-    private final String passwordEnvKey;
-    private final String usernameConfigKey;
-    private final String passwordConfigKey;
+    private static final String ENV_KEY_PATTERN = "TEST_%s_%s";
+    private static final String CONFIG_KEY_PATTERN = "credentials.%s.%s";
+    private static final String USERNAME = "USERNAME";
+    private static final String PASSWORD = "PASSWORD";
 
-    UserRole(String usernameEnvKey, String passwordEnvKey, String usernameConfigKey, String passwordConfigKey) {
-        this.usernameEnvKey = usernameEnvKey;
-        this.passwordEnvKey = passwordEnvKey;
-        this.usernameConfigKey = usernameConfigKey;
-        this.passwordConfigKey = passwordConfigKey;
-    }
-
+    /** Parses a role name from feature files (case-insensitive, accepts spaces or dashes). */
     public static UserRole from(String value) {
         String normalized = value == null
                 ? ""
@@ -31,26 +33,28 @@ public enum UserRole {
         try {
             return UserRole.valueOf(normalized);
         } catch (IllegalArgumentException ex) {
-            String allowedValues = Arrays.stream(UserRole.values())
-                    .map(Enum::name)
-                    .collect(Collectors.joining(", "));
-            throw new IllegalArgumentException("Invalid user role '" + value + "'. Supported roles: " + allowedValues, ex);
+            String allowed = Arrays.stream(values()).map(Enum::name).collect(Collectors.joining(", "));
+            throw new IllegalArgumentException(
+                    "Invalid user role '" + value + "'. Supported roles: " + allowed, ex);
         }
     }
 
-    public String getUsername() {
-        return resolveCredential(usernameEnvKey, usernameConfigKey);
+    public String username() {
+        return resolveCredential(USERNAME);
     }
 
-    public String getPassword() {
-        return resolveCredential(passwordEnvKey, passwordConfigKey);
+    public String password() {
+        return resolveCredential(PASSWORD);
     }
 
-    private static String resolveCredential(String envKey, String configKey) {
-        String fromEnvironment = System.getenv(envKey);
-        if (fromEnvironment != null && !fromEnvironment.isBlank()) {
-            return fromEnvironment;
+    private String resolveCredential(String credentialPart) {
+        String envKey = String.format(ENV_KEY_PATTERN, name(), credentialPart);
+        String fromEnv = System.getenv(envKey);
+        if (fromEnv != null && !fromEnv.isBlank()) {
+            return fromEnv;
         }
+        String configKey = String.format(
+                CONFIG_KEY_PATTERN, name().toLowerCase(Locale.ROOT), credentialPart.toLowerCase(Locale.ROOT));
         return EnvironmentConfig.required(configKey);
     }
 }

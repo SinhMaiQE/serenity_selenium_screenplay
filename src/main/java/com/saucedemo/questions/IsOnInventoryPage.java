@@ -5,6 +5,7 @@ import com.saucedemo.ui.InventoryPage;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Question;
 
+/** {@code true} when the inventory list is visible on the current page. */
 public class IsOnInventoryPage extends BaseQuestion<Boolean> {
 
     public static Question<Boolean> displayed() {

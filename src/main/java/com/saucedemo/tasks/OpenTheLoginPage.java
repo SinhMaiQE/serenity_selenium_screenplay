@@ -6,7 +6,12 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Performable;
 import net.serenitybdd.screenplay.actions.Open;
 
+/**
+ * Navigates the actor's browser to the application's {@code base.url}.
+ */
 public class OpenTheLoginPage extends BaseTask {
+
+    private static final String BASE_URL_KEY = "base.url";
 
     public static Performable now() {
         return instrumented(OpenTheLoginPage.class);
@@ -14,6 +19,6 @@ public class OpenTheLoginPage extends BaseTask {
 
     @Override
     public <T extends Actor> void performAs(T actor) {
-        actor.attemptsTo(Open.url(EnvironmentConfig.required("base.url")));
+        actor.attemptsTo(Open.url(EnvironmentConfig.required(BASE_URL_KEY)));
     }
 }

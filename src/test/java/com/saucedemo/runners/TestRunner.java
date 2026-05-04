@@ -1,14 +1,15 @@
-
 package com.saucedemo.runners;
 
-import org.junit.runner.RunWith;
 import io.cucumber.junit.CucumberOptions;
 import net.serenitybdd.cucumber.CucumberWithSerenity;
+import org.junit.runner.RunWith;
 
 @RunWith(CucumberWithSerenity.class)
 @CucumberOptions(
         features = "src/test/resources/features",
         glue = {"com.saucedemo.hooks", "com.saucedemo.stepdefinitions"},
-        plugin = {"pretty"}
+        plugin = {"pretty"},
+        snippets = CucumberOptions.SnippetType.CAMELCASE
 )
-public class TestRunner {}
+public class TestRunner {
+}

@@ -9,6 +9,9 @@ import net.serenitybdd.screenplay.Performable;
 import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.actions.Enter;
 
+/**
+ * Fills the login form and submits it. Use {@link #using(UserCredentials)} as the entry point.
+ */
 public class LoginWithCredentials extends BaseTask {
 
     private final String username;
@@ -20,11 +23,7 @@ public class LoginWithCredentials extends BaseTask {
     }
 
     public static Performable using(UserCredentials credentials) {
-        return instrumented(
-                LoginWithCredentials.class,
-                credentials.getUsername(),
-                credentials.getPassword()
-        );
+        return instrumented(LoginWithCredentials.class, credentials.username(), credentials.password());
     }
 
     @Override
@@ -32,7 +31,6 @@ public class LoginWithCredentials extends BaseTask {
         actor.attemptsTo(
                 UiWaits.untilVisible(LoginPage.USERNAME_INPUT),
                 Enter.theValue(username).into(LoginPage.USERNAME_INPUT),
-                UiWaits.untilVisible(LoginPage.PASSWORD_INPUT),
                 Enter.theValue(password).into(LoginPage.PASSWORD_INPUT),
                 UiWaits.untilClickable(LoginPage.LOGIN_BUTTON),
                 Click.on(LoginPage.LOGIN_BUTTON)
