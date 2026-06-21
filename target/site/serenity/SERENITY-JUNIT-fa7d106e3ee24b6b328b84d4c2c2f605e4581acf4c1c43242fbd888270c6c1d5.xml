@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><testsuite errors="6" failures="0" name="Login" skipped="0" tests="6" time="1.65" timestamp="2026-06-21 09:28:56"><testcase name="Successful login as &lt;role&gt;"><error message="'java.nio.file.Path org.openqa.selenium.internal.Require$PathStateChecker.isExecutable()'" type="java.lang.NoSuchMethodError">'java.nio.file.Path org.openqa.selenium.internal.Require$PathStateChecker.isExecutable()'</error><system-err>'java.nio.file.Path org.openqa.selenium.internal.Require$PathStateChecker.isExecutable()'&#13;
+com.saucedemo.tasks.OpenTheLoginPage.performAs(OpenTheLoginPage.java:22)&#13;
+com.saucedemo.stepdefinitions.LoginStepDefinitions.userOpensTheLoginPage(LoginStepDefinitions.java:29)&#13;
+</system-err></testcase><testcase name="Failed login with invalid or restricted credentials"><error message="'java.nio.file.Path org.openqa.selenium.internal.Require$PathStateChecker.isExecutable()'" type="java.lang.NoSuchMethodError">'java.nio.file.Path org.openqa.selenium.internal.Require$PathStateChecker.isExecutable()'</error><system-err>'java.nio.file.Path org.openqa.selenium.internal.Require$PathStateChecker.isExecutable()'&#13;
+com.saucedemo.tasks.OpenTheLoginPage.performAs(OpenTheLoginPage.java:22)&#13;
+com.saucedemo.stepdefinitions.LoginStepDefinitions.userOpensTheLoginPage(LoginStepDefinitions.java:29)&#13;
+</system-err></testcase><testcase name="Successful login with custom actor tag"><error message="'java.nio.file.Path org.openqa.selenium.internal.Require$PathStateChecker.isExecutable()'" type="java.lang.NoSuchMethodError">'java.nio.file.Path org.openqa.selenium.internal.Require$PathStateChecker.isExecutable()'</error><system-err>'java.nio.file.Path org.openqa.selenium.internal.Require$PathStateChecker.isExecutable()'&#13;
+com.saucedemo.tasks.OpenTheLoginPage.performAs(OpenTheLoginPage.java:22)&#13;
+com.saucedemo.stepdefinitions.LoginStepDefinitions.userOpensTheLoginPage(LoginStepDefinitions.java:29)&#13;
+</system-err></testcase></testsuite>
